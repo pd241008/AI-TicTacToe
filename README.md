@@ -1,2 +1,2 @@
 # Quzzie
-A Online Quiz App 
+A Online Quiz App
