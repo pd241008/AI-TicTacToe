@@ -1,12 +1,17 @@
-import QuizApp from "./components/QuizPage";
-import "./index.css";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import QuizPage from "./components/QuizPage";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div>
-      <QuizApp></QuizApp>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Header />} />
+        <Route path="/quiz" element={<QuizPage />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
