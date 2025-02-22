@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
+import ScorePage from "./ScorePage"; // Importing ScorePage
 
-// Define the structure of a question based on the QuizAPI response.
 interface Question {
   id: number;
   question: string;
@@ -25,17 +25,15 @@ interface Question {
 const API_KEY = "DdbRnd67HTrkr0u44bKsAs1eIhqDUjB6CYmZSBZ4";
 const API_URL = `https://quizapi.io/api/v1/questions?apiKey=${API_KEY}&category=code&difficulty=Medium&limit=15`;
 
-const QuizComponent: React.FC = () => {
+const QuizPage: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [isQuizCompleted, setIsQuizCompleted] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
-  // State to track which options are selected. The key is the answer key (like "answer_a") and the value is a boolean.
   const [selectedOptions, setSelectedOptions] = useState<{
     [key: string]: boolean;
   }>({});
 
-  // Fetch questions from the API when the component mounts.
   useEffect(() => {
     const fetchQuestions = async (): Promise<void> => {
       try {
@@ -50,20 +48,16 @@ const QuizComponent: React.FC = () => {
     fetchQuestions();
   }, []);
 
-  // Reset the selected checkboxes whenever the current question changes.
   useEffect(() => {
     setSelectedOptions({});
   }, [currentQuestionIndex]);
 
-  // Handler to process answer selection.
   const handleAnswerClick = (selectedAnswer: string): void => {
     const currentQuestion: Question = questions[currentQuestionIndex];
-    // Find the key for the selected answer, e.g., "answer_a", "answer_b", etc.
     const answerKey: string | undefined = Object.entries(
       currentQuestion.answers
     ).find(([, answer]) => answer === selectedAnswer)?.[0];
 
-    // Check if the selected answer is correct.
     if (
       answerKey &&
       currentQuestion.correct_answers &&
@@ -73,8 +67,9 @@ const QuizComponent: React.FC = () => {
     ) {
       setScore((prevScore) => prevScore + 1);
     }
+  };
 
-    // Move to the next question or mark the quiz as complete.
+  const nextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
     } else {
@@ -82,7 +77,12 @@ const QuizComponent: React.FC = () => {
     }
   };
 
-  // When questions haven't loaded yet, show a loading indicator.
+  const restartQuiz = () => {
+    setCurrentQuestionIndex(0);
+    setScore(0);
+    setIsQuizCompleted(false);
+  };
+
   if (questions.length === 0) {
     return (
       <div className="h-screen flex justify-center items-center">
@@ -92,20 +92,24 @@ const QuizComponent: React.FC = () => {
   }
 
   return (
-    <div className="h-screen flex justify-center items-center mx-auto max-w-sm max-h-96 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10">
+    <div className="h-screen flex justify-center items-center p-4">
       {isQuizCompleted ? (
-        <h2 className="text-center">
-          Your Score: {score} / {questions.length}
-        </h2>
+        <ScorePage
+          score={score}
+          total={questions.length}
+          restartQuiz={restartQuiz}
+        />
       ) : (
-        <div className="flex flex-col text-left rtl:text-right text-black-500 dark:text-black-400">
-          <h2 className="mb-4">{questions[currentQuestionIndex].question}</h2>
+        <div className="w-full max-w-md min-h-40 p-6 bg-white shadow-lg rounded-xl flex flex-col items-start text-left dark:bg-slate-800">
+          <h2 className="mb-4 text-lg font-semibold">
+            {questions[currentQuestionIndex].question}
+          </h2>
           {Object.entries(questions[currentQuestionIndex].answers)
-            .filter(([_, answer]) => answer !== null)
+            .filter(([, answer]) => answer !== null)
             .map(([key, answer]) => (
               <label
                 key={key}
-                className="mb-2 flex items-center cursor-pointer"
+                className="mb-2 flex items-center cursor-pointer w-full"
               >
                 <input
                   type="checkbox"
@@ -117,7 +121,6 @@ const QuizComponent: React.FC = () => {
                       ...prev,
                       [key]: isChecked,
                     }));
-                    // Process the answer only when the checkbox is checked.
                     if (isChecked && answer) {
                       handleAnswerClick(answer);
                     }
@@ -126,10 +129,18 @@ const QuizComponent: React.FC = () => {
                 {answer}
               </label>
             ))}
+          <button
+            onClick={nextQuestion}
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded w-full"
+          >
+            {currentQuestionIndex < questions.length - 1
+              ? "Next Question"
+              : "Check Score"}
+          </button>
         </div>
       )}
     </div>
   );
 };
 
-export default QuizComponent;
+export default QuizPage;
