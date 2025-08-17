@@ -1,9 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+AI-TickTacToe
+A Tic-Tac-Toe game powered by AI, built with Next.js. Challenge an intelligent opponent that uses a minimax algorithm to make optimal moves, offering a fun and engaging experience.
+Features
 
-## Getting Started
+Play Tic-Tac-Toe against an AI opponent.
+Responsive design for seamless gameplay on desktop and mobile.
+Built with Next.js for fast rendering and optimized performance.
+Uses next/font to load the Geist font family for a modern look.
+Simple and intuitive user interface.
 
-First, run the development server:
+Getting Started
+This project is bootstrapped with create-next-app.
+Prerequisites
 
+Node.js (version 15 or higher)
+npm, yarn, pnpm, or bun package manager
+
+Installation
+```bash
+Clone the repository:
+git clone https://github.com/pd241008/AI-TickTacToe.git
+cd AI-TickTacToe
+```
+
+
+Install dependencies:
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+
+Run the development server:
 ```bash
 npm run dev
 # or
@@ -14,23 +46,38 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open ```bash http://localhost:3000``` in your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+You can start editing the page by modifying app/page.tsx. The page auto-updates as you edit the file.
+Usage
 
-## Learn More
+Start a Game: Open the application in your browser and click on any cell in the 3x3 grid to make your move (as 'X'). The AI (as 'O') will respond with an optimal move.
+Game Outcome: The game will display the result (win, lose, or draw) once the game concludes.
+Restart: Click the restart button to play a new game.
 
-To learn more about Next.js, take a look at the following resources:
+Learn More
+To learn more about Next.js, check out the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Next.js Documentation - learn about Next.js features and API.
+Learn Next.js - an interactive Next.js tutorial.
+Next.js GitHub Repository - your feedback and contributions are welcome!
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project uses next/font to automatically optimize and load Geist, a new font family for Vercel.
+Deploy on Vercel
+The easiest way to deploy your Next.js app is to use the Vercel Platform from the creators of Next.js.
+Check out the Next.js deployment documentation for more details.
+Contributing
+Contributions are welcome! To contribute:
 
-## Deploy on Vercel
+Fork the repository.
+Create a new branch (```git checkout -b feature/your-feature```).
+Make your changes and commit (```git commit -m 'Add your feature'```).
+Push to the branch (```git push origin feature/your-feature```).
+Open a Pull Request.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Please ensure your code follows the project's coding standards and includes appropriate tests.
+License
+This project is licensed under the MIT License. See the LICENSE file for details.
+About
+AI-TickTacToe is a fun and educational project demonstrating the use of AI in a classic game. Built by pd241008.
